@@ -6,62 +6,90 @@ import numpy as np
 with open('calories_model.pkl', 'rb') as f:
     model = pickle.load(f)
 
-# Custom CSS styling (unchanged colors)
+# Custom Gen Z-style CSS with background image and modern glassmorphism
 st.markdown("""
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
         .stApp {
-            background: linear-gradient(to right, #f8ffae, #43c6ac);
-            color: #333333;
-            font-family: 'Segoe UI', sans-serif;
+            background: url('https://cdn.wallpapersafari.com/53/58/QhXCN0.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
         }
 
         h1 {
             text-align: center;
-            color: #003366;
+            color: #ffffff;
             padding-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px #000;
         }
 
-        .stNumberInput > div > div > input {
-            background-color: #ffffff !important;
-            color: #000 !important;
+        .css-1cpxqw2 {
+            background: rgba(255, 255, 255, 0.15) !important;
+            backdrop-filter: blur(10px) !important;
+            border-radius: 15px !important;
+            padding: 2em !important;
+            margin: 1em 0 !important;
+            color: #ffffff !important;
         }
+
+        label, .stSelectbox label, .stNumberInput label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        input {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #000000 !important;
+    border-radius: 10px !important;
+}
+
 
         div.stButton > button {
-            background-color: #1f77b4;
+            background-image: linear-gradient(to right, #ff416c, #ff4b2b);
             color: white;
-            border-radius: 8px;
-            padding: 0.5em 2em;
-            font-size: 16px;
+            border-radius: 12px;
+            padding: 0.75em 2em;
+            font-size: 1rem;
             font-weight: bold;
-            transition: 0.3s;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
 
         div.stButton > button:hover {
-            background-color: #105a8d;
-            color: #fff;
+            transform: scale(1.05);
+            background-image: linear-gradient(to right, #ff4b2b, #ff416c);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
         .stAlert {
-            border-radius: 10px;
-            background-color: #dff0d8;
-            color: #3c763d;
-            font-size: 18px;
-        }
+    border-radius: 12px;
+    background-color: rgba(0, 255, 128, 0.2);
+    color: #00ffcc;  /* Bright & visible on dark bg */
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    padding: 1em;
+    backdrop-filter: blur(6px);
+}
 
-        label {
-            font-weight: bold;
-            font-size: 15px;
-        }
 
+        .css-1v0mbdj, .css-1x8cf1d {
+            color: #ffffff !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-# App Title
+# Title
 st.title("🔥 Calories Burned Prediction App 💪")
 
 st.markdown("#### 🏃‍♂️ Enter your workout details below to estimate your burn! 🥵")
 
-# UI Layout with Columns
+# UI Layout
 col1, col2 = st.columns(2)
 
 with col1:
@@ -84,5 +112,8 @@ if st.button("⚡ Predict Calories Burned"):
     try:
         calories = model.predict(features)[0]
         st.success(f"🔥 Estimated Calories Burned: **{calories:.2f} kcal** 🏋️‍♀️")
+        
     except Exception as e:
         st.error(f"🚫 An error occurred: {e}")
+        
+
